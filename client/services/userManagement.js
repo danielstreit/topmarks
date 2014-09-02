@@ -3,14 +3,14 @@ angular.module('curates.services', [])
 
   var user = {
     name: '',
-    provider: 'github',
+    provider: 'test',
     id: '',
     loggedIn: false
   };
   var login = function(name) {
     user.name = name;
     user.id = name;
-    user.provider = 'github';
+    user.provider = 'test';
     user.loggedIn = true;
   };
   var logout = function() {

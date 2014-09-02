@@ -1,11 +1,11 @@
 angular.module('curates', [
   'ui.router',
   'curates.collectionsList',
+  'curates.myCollections',
   'curates.singleCollection',
   'curates.editCollection',
   'curates.services',
   'curates.collectionFactory',
-  'curates.personalCollectionList',
   'curates.createCollection'
 ])
 

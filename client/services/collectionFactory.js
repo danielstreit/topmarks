@@ -2,10 +2,14 @@ angular.module('curates.collectionFactory', [])
 .factory('collectionFactory', function($http){
 
   var getCollection = function(url) {
+    console.log('called getCollection', url);
     return $http({
       method: 'GET',
       url: '/api/collection/' + url
     }).then(function(response) {
+      if (response.data === 'null') {
+        return null;
+      }
       return response.data;
     });
   };
@@ -22,7 +26,7 @@ angular.module('curates.collectionFactory', [])
   var getUserCollections = function(user) {
     return $http({
       method: 'GET',
-      url: '/api/' + user.provider + '/' + user.id
+      url: '/api/user/' + user.provider + '/' + user.id
     }).then(function(response) {
       return response.data;
     });
