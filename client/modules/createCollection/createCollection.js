@@ -9,24 +9,28 @@ angular.module('curates.createCollection', [])
 })
 
 .controller('createCollectionController', function($scope, $state, userManagement, collectionFactory) {
+
   // Only loggedIn users can create collections
   $scope.loggedIn = userManagement.user.loggedIn;
 
-  // New empty collection
+  // Initialize new collection
   $scope.collection = {};
-  $scope.collection.user = userManagement.user.name;
+  $scope.collection.user = userManagement.user;
+  delete $scope.collection.user.loggedIn;
+  $scope.collection.links = [];
+  $scope.collection.title = '';
+  $scope.collection.description = '';
 
   // called on submitting the form
-  $scope.create = function() {
-    // Setting the url quick and dirty. 
-    // We need to implement a function to generate urls
-    $scope.collection.url = $scope.collection.user + '/' + $scope.collection.title;
-    collectionFactory.createCollection($scope.collection);
+  $scope.submitCreate = function() {
+    collectionFactory.createCollection($scope.collection).then(function(collection) {
+      $state.go('singleCollection', {
+        url: collection.url
+      });
+    });
+  };
 
-    // This is where I stopped. 
-    // Edit collection and createCollection will share
-    // a lot of the same functionality. Devise a way to 
-    // share code! There are many options.
-
-  }
-})
+  $scope.addLink = function() {
+    $scope.collection.links.push({url: '', title: '', description: ''});
+  };
+});

@@ -5,11 +5,13 @@ angular.module('curates.services', [])
     name: '',
     provider: 'test',
     id: '',
+    fullName: '',
     loggedIn: false
   };
   var login = function(name) {
     user.name = name;
     user.id = name;
+    user.fullName = name;
     user.provider = 'test';
     user.loggedIn = true;
   };
@@ -17,10 +19,14 @@ angular.module('curates.services', [])
     user.name = '';
     user.loggedIn = false;
   };
+  var validateUser = function(target) {
+    return target.provider === user.provider && target.id === user.id
+  };
   return {
     user: user,
     login: login,
-    logout: logout
+    logout: logout,
+    validateUser: validateUser
   };
 })
 .controller('userMangamentController', function($scope, userManagement) {

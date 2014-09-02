@@ -2,7 +2,6 @@ angular.module('curates.collectionFactory', [])
 .factory('collectionFactory', function($http){
 
   var getCollection = function(url) {
-    console.log('called getCollection', url);
     return $http({
       method: 'GET',
       url: '/api/collection/' + url
