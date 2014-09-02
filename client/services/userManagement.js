@@ -7,6 +7,8 @@ angular.module('curates.services', [])
   };
   var login = function(name) {
     user.name = name;
+    user.id = name;
+    user.provider = 'github';
     user.loggedIn = true;
   };
   var logout = function() {
