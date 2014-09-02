@@ -1,5 +1,5 @@
 <div ng-controller="singleCollectionController">
-  <h2>{{ collection.title }}<small> by {{ collection.user }}</h2>
+  <h2>{{ collection.title }}<small> by {{ collection.user.givenName }}</h2>
   <p>{{ collection.description }}</p>
   <a ng-href="#/{{ collection.url }}/edit" ng-if="isUser">Edit</a>
   <div class="collectionLinks" ng-repeat="link in collection.links">

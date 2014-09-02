@@ -24,7 +24,7 @@ app.use(express.static(__dirname + '/client'));
 
 // add new collection endpoint
 // responds with null if collection can't be added
-app.post('/api/collection/new', function(req, res) {
+app.post('/api/collection/create', function(req, res) {
   mongo.create(req.body).then(function(collection) {
     res.end(JSON.stringify(collection));
   });

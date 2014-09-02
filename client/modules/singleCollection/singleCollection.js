@@ -3,14 +3,19 @@ angular.module('curates.singleCollection', [])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('singleCollection', {
-    url: '/:user/:collection',
+    url: '/:url',
     templateUrl: 'modules/singleCollection/singleCollection.html'
   })
 })
 
 .controller('singleCollectionController', function($scope, $stateParams, collectionFactory, userManagement) {
-  var url = $stateParams.user + '/' + $stateParams.collection;
-  // if the url doesn't exist, take the user somewhere else?
-  $scope.collection = collectionFactory.getCollection(url);
-  $scope.isUser = userManagement.user.name === $scope.collection.user;
+  var url = $stateParams.url;
+  collectionFactory.getCollection(url).then(function(collection) {
+    if (collection) {
+      $scope.isUser = 
+        userManagement.user.id === collection.user.id &&
+        userManagement.user.provider === collection.user.provider;
+      $scope.collection = collection;
+    }
+  });
 });
