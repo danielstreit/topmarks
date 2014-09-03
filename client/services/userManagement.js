@@ -1,29 +1,25 @@
 angular.module('curates.services', [])
 .factory('userManagement', function() {
 
-  var user = {
-    name: '',
-    provider: 'test',
-    id: '',
-    fullName: '',
-    loggedIn: false
-  };
+  var user = {};
+  var loggedIn = false;
   var login = function(name) {
-    user.name = name;
+    console.log(name);
+    user.givenName = name;
     user.id = name;
     user.fullName = name;
     user.provider = 'test';
-    user.loggedIn = true;
   };
   var logout = function() {
-    user.name = '';
-    user.loggedIn = false;
+    user = {};
+    loggedIn = false;
   };
   var validateUser = function(target) {
     return target.provider === user.provider && target.id === user.id
   };
   return {
     user: user,
+    loggedIn: loggedIn,
     login: login,
     logout: logout,
     validateUser: validateUser
@@ -31,6 +27,15 @@ angular.module('curates.services', [])
 })
 .controller('userMangamentController', function($scope, userManagement) {
   $scope.user = userManagement.user;
-  $scope.login = userManagement.login;
-  $scope.logout = userManagement.logout;
+  $scope.loggedIn = userManagement.loggedIn;
+  $scope.login = function(name) {
+    userManagement.loggedIn = true;
+    $scope.loggedIn = true;
+    userManagement.login(name);
+  };
+  $scope.logout = function() {
+    userManagement.loggedIn = false;
+    $scope.loggedIn = false;
+    userManagement.logout();
+  }
 })

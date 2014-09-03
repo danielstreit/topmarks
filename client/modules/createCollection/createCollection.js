@@ -11,12 +11,11 @@ angular.module('curates.createCollection', [])
 .controller('createCollectionController', function($scope, $state, userManagement, collectionFactory) {
 
   // Only loggedIn users can create collections
-  $scope.loggedIn = userManagement.user.loggedIn;
+  $scope.loggedIn = userManagement.loggedIn;
 
   // Initialize new collection
   $scope.collection = {};
   $scope.collection.user = userManagement.user;
-  delete $scope.collection.user.loggedIn;
   $scope.collection.links = [];
   $scope.collection.title = '';
   $scope.collection.description = '';
